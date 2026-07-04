@@ -8,7 +8,6 @@ import org.jsoup.Jsoup
 class YoutubeProvider : MainAPI() { 
     override var mainUrl = "https://animesss.com"
     override var name = "Animesss" 
-    // ВАЖЛИВО: тут має бути строго var, інакше CloudStream свариться!
     override var supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie) 
     override var hasMainPage = true 
 
@@ -21,7 +20,6 @@ class YoutubeProvider : MainAPI() {
         return document.select("article.post, div.anime-item, div.poster-card").map { element ->
             val title = element.select("h2.title, a.title, h3").text()
             val href = element.select("a").attr("href")
-            
             val posterUrl = element.select("img").attr("data-src").ifEmpty {
                 element.select("img").attr("src")
             }
@@ -32,7 +30,7 @@ class YoutubeProvider : MainAPI() {
         }
     }
 
-    // 2. Сторінка тайтлу та серій
+    // 2. Сторінка тайтлу та формування серій
     override suspend fun load(url: String): LoadResponse? {
         val html = app.get(url).text
         val document = Jsoup.parse(html)
@@ -49,20 +47,25 @@ class YoutubeProvider : MainAPI() {
                 val epHref = element.attr("href").ifEmpty { url }
                 val epName = element.text().ifEmpty { "Серія ${index + 1}" }
                 
-                episodesList.add(Episode(
-                    data = epHref,
-                    name = epName,
-                    episode = index + 1
-                ))
+                // Виправлено помилку №1: використовуємо метод newEpisode
+                episodesList.add(newEpisode(epHref) {
+                    this.name = epName
+                    this.episode = index + 1
+                })
             }
         } else {
-            episodesList.add(Episode(data = url, name = "Дивитися аніме"))
+            // Виправлено помилку №1 для поодинокого плеєра
+            episodesList.add(newEpisode(url) {
+                this.name = "Дивитися аніме"
+            })
         }
 
+        // Повертаємо через оригінальний білдер newAnimeLoadResponse
         return newAnimeLoadResponse(title, url, TvType.Anime) {
             this.posterUrl = poster
             this.plot = description
-            this.episodes = episodesList
+            // Виправлено помилку №2: сортуємо список у карту під тегом Subbed
+            this.episodes = mutableMapOf(DubStatus.Subbed to episodesList)
         }
     }
 
@@ -75,13 +78,11 @@ class YoutubeProvider : MainAPI() {
     ): Boolean {
         val html = app.get(data).text
         val document = Jsoup.parse(html)
-
         val iframes = document.select("iframe")
         var foundVideo = false
 
         for (iframe in iframes) {
             var iframeUrl = iframe.attr("src")
-            
             if (iframeUrl.startsWith("//")) {
                 iframeUrl = "https:$iframeUrl"
             }
@@ -97,7 +98,6 @@ class YoutubeProvider : MainAPI() {
                 foundVideo = true
             }
         }
-
         return foundVideo
     }
 }
