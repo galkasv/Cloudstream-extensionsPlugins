@@ -5,15 +5,14 @@ import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.loadExtractor
 import org.jsoup.Jsoup
 
-// Назва класу має бути YoutubeProvider, щоб YoutubePlugin.kt її бачив
 class YoutubeProvider : MainAPI() { 
     override var mainUrl = "https://animesss.com"
-    override var name = "Animesss" // У додатку назва буде відображатися як Animesss!
+    override var name = "Animesss" 
     override val supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie)
     
     override val hasMainPage = true 
 
-    // 1. Пошук
+    // 1. Пошук аніме
     override suspend fun search(query: String): List<SearchResponse> {
         val url = "$mainUrl/?s=$query"
         val html = app.get(url).text
@@ -33,7 +32,7 @@ class YoutubeProvider : MainAPI() {
         }
     }
 
-    // 2. Сторінка аніме та серії
+    // 2. Сторінка тайтлу та серій (Виправлено передачу списку серій)
     override suspend fun load(url: String): LoadResponse? {
         val html = app.get(url).text
         val document = Jsoup.parse(html)
@@ -42,7 +41,7 @@ class YoutubeProvider : MainAPI() {
         val poster = document.select("div.poster img, .anime-poster img, .single-poster img").attr("src")
         val description = document.select("div.description, .entry-content, .video-description").text()
 
-        val episodes = mutableListOf<Episode>()
+        val episodesList = mutableListOf<Episode>()
         val episodeElements = document.select("ul.episodes-list li, div.series-list a, .episodes-nav a")
         
         if (episodeElements.isNotEmpty()) {
@@ -50,24 +49,24 @@ class YoutubeProvider : MainAPI() {
                 val epHref = element.attr("href").ifEmpty { url }
                 val epName = element.text().ifEmpty { "Серія ${index + 1}" }
                 
-                episodes.add(Episode(
+                episodesList.add(Episode(
                     data = epHref,
                     name = epName,
                     episode = index + 1
                 ))
             }
         } else {
-            episodes.add(Episode(data = url, name = "Дивитися аніме (Перемикання серій у плеєрі)"))
+            episodesList.add(Episode(data = url, name = "Дивитися аніме"))
         }
 
-        return newAnimeLoadResponse(title, url, TvType.Anime) {
+        // Передаємо episodesList четвертим параметром, як вимагає CloudStream
+        return newAnimeLoadResponse(title, url, TvType.Anime, episodesList) {
             this.posterUrl = poster
             this.plot = description
-            this.episodes = episodes
         }
     }
 
-    // 3. Відео з Kodik
+    // 3. Відео з плеєра Kodik
     override suspend fun loadLinks(
         data: String,
         isCasting: Boolean,
