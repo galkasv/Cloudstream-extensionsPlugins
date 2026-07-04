@@ -10,9 +10,9 @@ https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/builds/p
 ## Short Link
 https://tinyurl.com/jhx5aet2
 
-## RAW link
+### RAW link
 https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/refs/heads/master/repo.json
-## Short Link
+### Short Link
 https://tinyurl.com/yc7axtbp
 
 *Go use it, it's a great mobile discord client mod!*
