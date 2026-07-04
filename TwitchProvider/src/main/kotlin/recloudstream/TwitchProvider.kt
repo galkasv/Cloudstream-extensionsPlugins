@@ -14,16 +14,33 @@ class TwitchProvider : MainAPI() {
 
     // 1. Пошук контенту на AMD.online
     override suspend fun search(query: String): List<SearchResponse> {
+        // Зазвичай пошук на таких сайтах іде через параметр ?s= або /search/
         val url = "$mainUrl/?s=$query" 
         val html = app.get(url).text
         val document = Jsoup.parse(html)
 
-        return document.select("article, div.poster, div.movie-item").map { element ->
-            val title = element.select("h2, a.title, h3").text()
+        // Шукаємо картки аніме. Додано типові класи українських кіносайтів
+        return document.select("article, div.poster, div.movie-item, div.shortstory, a.movie-pack").mapNotNull { element ->
+            // Назва та посилання
+            val titleElement = element.select("h2, h3, a.title, div.title, .th-title").firstOrNull() ?: element
+            val title = titleElement.text().trim()
+            
+            // Якщо назви немає, пропускаємо цей елемент
+            if (title.isEmpty()) return@mapNotNull null
+
+            // Шукаємо лінк на сторінку аніме
             val href = element.select("a").attr("href")
-            val posterUrl = element.select("img").attr("data-src").ifEmpty {
-                element.select("img").attr("src")
-            }
+            if (href.isEmpty()) return@mapNotNull null
+
+            // Розумний пошук постера (перебираємо всі можливі атрибути лінивого завантаження картинок)
+            val img = element.select("img").firstOrNull()
+            val posterUrl = img?.let {
+                it.attr("data-src").ifEmpty {
+                    it.attr("data-lazy-src").ifEmpty {
+                        it.attr("src")
+                    }
+                }
+            } ?: ""
 
             newAnimeSearchResponse(title, href, TvType.Anime) {
                 this.posterUrl = posterUrl
