@@ -5,15 +5,15 @@ import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.loadExtractor
 import org.jsoup.Jsoup
 
-// Назву класу залишаємо YoutubeProvider, щоб робот успішно зібрав файл
+// Назва класу має бути YoutubeProvider, щоб YoutubePlugin.kt її бачив
 class YoutubeProvider : MainAPI() { 
     override var mainUrl = "https://animesss.com"
-    override var name = "Animesss" // А в самому додатку CloudStream назва буде відображатися як Animesss
+    override var name = "Animesss" // У додатку назва буде відображатися як Animesss!
     override val supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie)
     
     override val hasMainPage = true 
 
-    // 1. Логіка пошуку аніме на сайті
+    // 1. Пошук
     override suspend fun search(query: String): List<SearchResponse> {
         val url = "$mainUrl/?s=$query"
         val html = app.get(url).text
@@ -33,7 +33,7 @@ class YoutubeProvider : MainAPI() {
         }
     }
 
-    // 2. Логіка завантаження сторінки тайтлу та формування списку серій
+    // 2. Сторінка аніме та серії
     override suspend fun load(url: String): LoadResponse? {
         val html = app.get(url).text
         val document = Jsoup.parse(html)
@@ -67,7 +67,7 @@ class YoutubeProvider : MainAPI() {
         }
     }
 
-    // 3. Логіка перехоплення плеєра Kodik та витягування відео
+    // 3. Відео з Kodik
     override suspend fun loadLinks(
         data: String,
         isCasting: Boolean,
