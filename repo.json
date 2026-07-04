@@ -1,8 +1,8 @@
 {
-    "name": "Cloudstream providers repository",
-    "description": "Cloudstream extension Repository",
-    "manifestVersion": 1,
-    "pluginLists": [
-      "https://raw.githubusercontent.com/recloudstream/extensions/builds/plugins.json"
-    ]
+  "name": "Cloudstream-extensionsPlugins",
+  "description": "Мій власний репозиторій плагінів",
+  "manifestVersion": 1,
+  "pluginLists": [
+    "https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/builds/plugins.json"
+  ]
 }
