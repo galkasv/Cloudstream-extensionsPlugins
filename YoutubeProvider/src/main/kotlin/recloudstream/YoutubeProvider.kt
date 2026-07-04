@@ -8,9 +8,9 @@ import org.jsoup.Jsoup
 class YoutubeProvider : MainAPI() { 
     override var mainUrl = "https://animesss.com"
     override var name = "Animesss" 
-    override val supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie)
-    
-    override val hasMainPage = true 
+    // ВАЖЛИВО: тут має бути строго var, інакше CloudStream свариться!
+    override var supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie) 
+    override var hasMainPage = true 
 
     // 1. Пошук аніме
     override suspend fun search(query: String): List<SearchResponse> {
@@ -32,7 +32,7 @@ class YoutubeProvider : MainAPI() {
         }
     }
 
-    // 2. Сторінка тайтлу та серій (Виправлено передачу списку серій)
+    // 2. Сторінка тайтлу та серій
     override suspend fun load(url: String): LoadResponse? {
         val html = app.get(url).text
         val document = Jsoup.parse(html)
@@ -59,10 +59,10 @@ class YoutubeProvider : MainAPI() {
             episodesList.add(Episode(data = url, name = "Дивитися аніме"))
         }
 
-        // Передаємо episodesList четвертим параметром, як вимагає CloudStream
-        return newAnimeLoadResponse(title, url, TvType.Anime, episodesList) {
+        return newAnimeLoadResponse(title, url, TvType.Anime) {
             this.posterUrl = poster
             this.plot = description
+            this.episodes = episodesList
         }
     }
 
