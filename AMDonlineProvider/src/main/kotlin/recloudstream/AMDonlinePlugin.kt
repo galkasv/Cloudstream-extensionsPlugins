@@ -1,10 +1,12 @@
 package recloudstream
 
 import android.content.Context
+import com.lagradost.cloudstream3.plugins.CloudstreamPlugin
+import com.lagradost.cloudstream3.plugins.Plugin
 
-@com.lagradost.cloudstream3.plugins.CloudstreamPlugin
-class AMDonlinePlugin : com.lagradost.cloudstream3.plugins.Plugin() {
+@CloudstreamPlugin
+class AMDonlinePlugin: Plugin() {
     override fun load(context: Context) {
-        registerMainProvider(AMDonlineProvider())
+        registerProvider(AMDonlineProvider())
     }
 }
