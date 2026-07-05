@@ -7,7 +7,9 @@ import org.jsoup.Jsoup
 
 import com.lagradost.cloudstream3.MainAPI
 import com.lagradost.cloudstream3.TvType
+import com.lagradost.cloudstream3.plugins.CloudstreamPlugin
 
+@CloudstreamPlugin
 class AMDonlineProvider : MainAPI() {
     override var name = "AMD.online"
     override var mainUrl = "https://amd.online"

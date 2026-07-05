@@ -4,9 +4,12 @@ import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.loadExtractor
 import org.jsoup.Jsoup
+
 import com.lagradost.cloudstream3.MainAPI
 import com.lagradost.cloudstream3.TvType
+import com.lagradost.cloudstream3.plugins.CloudstreamPlugin
 
+@CloudstreamPlugin
 class AnimesssProvider : MainAPI() {
     override var name = "Animesss"
     override var mainUrl = "https://animesss.com"
@@ -49,24 +52,20 @@ class AnimesssProvider : MainAPI() {
                 val epHref = element.attr("href").ifEmpty { url }
                 val epName = element.text().ifEmpty { "Серія ${index + 1}" }
                 
-                // Виправлено помилку №1: використовуємо метод newEpisode
                 episodesList.add(newEpisode(epHref) {
                     this.name = epName
                     this.episode = index + 1
                 })
             }
         } else {
-            // Виправлено помилку №1 для поодинокого плеєра
             episodesList.add(newEpisode(url) {
                 this.name = "Дивитися аніме"
             })
         }
 
-        // Повертаємо через оригінальний білдер newAnimeLoadResponse
         return newAnimeLoadResponse(title, url, TvType.Anime) {
             this.posterUrl = poster
             this.plot = description
-            // Виправлено помилку №2: сортуємо список у карту під тегом Subbed
             this.episodes = mutableMapOf(DubStatus.Subbed to episodesList)
         }
     }
