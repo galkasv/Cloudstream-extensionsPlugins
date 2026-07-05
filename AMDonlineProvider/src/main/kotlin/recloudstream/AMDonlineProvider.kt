@@ -5,10 +5,13 @@ import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.loadExtractor
 import org.jsoup.Jsoup
 
-class TwitchProvider : MainAPI() { 
-    override var mainUrl = "https://amd.online" 
-    override var name = "AMD.online" 
-    override var supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie) 
+import com.lagradost.cloudstream3.MainAPI
+import com.lagradost.cloudstream3.TvType
+
+class AMDonlineProvider : MainAPI() {
+    override var name = "AMD.online"
+    override var mainUrl = "https://amd.online"
+    override var supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie, TvType.Movie, TvType.TvSeries, TvType.OVA)
     
     // Вимикаємо головну сторінку, щоб додаток не видавав помилку "Not implemented".
     // Тепер джерело працюватиме на 100% через рядок пошуку!

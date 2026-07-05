@@ -4,11 +4,13 @@ import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.loadExtractor
 import org.jsoup.Jsoup
+import com.lagradost.cloudstream3.MainAPI
+import com.lagradost.cloudstream3.TvType
 
-class YoutubeProvider : MainAPI() { 
+class AnimesssProvider : MainAPI() {
+    override var name = "Animesss"
     override var mainUrl = "https://animesss.com"
-    override var name = "Animesss" 
-    override var supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie) 
+    override var supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie, TvType.Movie, TvType.TvSeries, TvType.OVA) 
     override var hasMainPage = false 
 
     // 1. Пошук аніме
