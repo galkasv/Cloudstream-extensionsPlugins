@@ -9,7 +9,7 @@ class YoutubeProvider : MainAPI() {
     override var mainUrl = "https://animesss.com"
     override var name = "Animesss" 
     override var supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie) 
-    override var hasMainPage = true 
+    override var hasMainPage = false 
 
     // 1. Пошук аніме
     override suspend fun search(query: String): List<SearchResponse> {
