@@ -39,7 +39,7 @@ subprojects {
     }
 
     // ТУТ МИ МІНЯЄМО ВЕРСІЮ (якщо 4.7.0 бита, можна буде легко вписати "4.6.0")
-    val csVersion = "4.7.0"
+    val csVersion = "4.6.0"
 
     // Абсолютний перехоплювач усіх залежностей Cloudstream
     configurations.all {
