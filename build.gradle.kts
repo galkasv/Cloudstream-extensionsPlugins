@@ -11,9 +11,9 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools:r8:8.8.24")
+        
         classpath("com.github.recloudstream.gradle:com.lagradost.cloudstream3.gradle.gradle.plugin:32895aedb6")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21")
     }
 }
 
