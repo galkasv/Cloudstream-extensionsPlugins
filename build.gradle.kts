@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 buildscript {
     repositories {
         google()
-        mavenCentral() // Тут виправлено
+        mavenCentral()
         maven("https://jitpack.io")
     }
 
@@ -20,7 +20,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        mavenCentral() // І тут виправлено
+        mavenCentral()
         maven("https://jitpack.io")
     }
 }
@@ -38,10 +38,16 @@ subprojects {
         setRepo(System.getenv("GITHUB_REPOSITORY") ?: "https://github.com/user/repo")
     }
 
-    // Примусово змушуємо Gradle використовувати стабільну версію 4.7.0 замість SNAPSHOT
+    // ТУТ МИ МІНЯЄМО ВЕРСІЮ (якщо 4.7.0 бита, можна буде легко вписати "4.6.0")
+    val csVersion = "4.7.0"
+
+    // Абсолютний перехоплювач усіх залежностей Cloudstream
     configurations.all {
-        resolutionStrategy {
-            force("com.github.recloudstream.cloudstream:library:4.7.0")
+        resolutionStrategy.eachDependency {
+            if ((requested.group.contains("recloudstream") || requested.group.contains("Lagradost")) &&
+                (requested.name == "library" || requested.name == "cloudstream" || requested.name == "CloudStream-Core")) {
+                useVersion(csVersion)
+            }
         }
     }
 
@@ -74,7 +80,7 @@ subprojects {
     dependencies {
         val implementation by configurations
 
-        implementation("com.github.recloudstream.cloudstream:library:4.7.0")
+        implementation("com.github.recloudstream.cloudstream:library:$csVersion")
 
         implementation(kotlin("stdlib"))
         implementation("com.github.Blatzar:NiceHttp:0.4.11")
