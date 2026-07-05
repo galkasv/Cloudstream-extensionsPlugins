@@ -20,7 +20,7 @@ https://tinyurl.com/jhx5aet2
 https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/refs/heads/master/repo.json
 ```
 АБО
-** Short Link **
+**Short Link**
 ```
 https://tinyurl.com/yc7axtbp
 ```
