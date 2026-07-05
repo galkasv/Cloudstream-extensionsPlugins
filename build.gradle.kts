@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 buildscript {
     repositories {
         google()
-        mainCentral()
+        mavenCentral() // Тут виправлено
         maven("https://jitpack.io")
     }
 
@@ -20,7 +20,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        mainCentral()
+        mavenCentral() // І тут виправлено
         maven("https://jitpack.io")
     }
 }
