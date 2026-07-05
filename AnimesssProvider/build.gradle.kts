@@ -1,13 +1,11 @@
-// Use an integer for version numbers
-version = 1
-
 cloudstream {
-    // All of these properties are optional, you can safely remove any of them.
-    
-    name = "Animesss"
-    description = "Animesss - Дивитися аніме та донхуа"
-    authors = listOf("galkasv") // Впиши свій нік
-    language = "uk" // Саме цей рядок додасть український прапор на TV!
+    this.name = "Animesss"
+    this.description = "Animesss - Дивитися аніме та донхуа"
+    this.authors = listOf("galkasv")
+    this.language = "uk" // Додає український прапор
+
+    // Перенесли всередину блоку і захистили від конфліктів за допомогою this.
+    this.version = 1 
 
     /**
      * Status int as one of the following:
@@ -16,15 +14,18 @@ cloudstream {
      * 2: Slow
      * 3: Beta-only
      **/
-    status = 1 // Will be 3 if unspecified
+    this.status = 1 
 
-    tvTypes = listOf(
+    this.tvTypes = listOf(
         "Anime", 
         "AnimeMovie", 
         "Movie", 
         "TvSeries",
-        "OVA")
-    iconUrl = "https://www.google.com/s2/favicons?domain=animesss.com&sz=%size%"
+        "OVA"
+    )
+    
+    // Автоматично підтягне гарну іконку сайту з фавікону Google
+    this.iconUrl = "https://www.google.com/s2/favicons?domain=animesss.com&sz=%size%"
 
-    isCrossPlatform = true
+    this.isCrossPlatform = true
 }

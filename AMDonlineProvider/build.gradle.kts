@@ -1,13 +1,11 @@
-// Use an integer for version numbers
-version = 2
-
 cloudstream {
-    // All of these properties are optional, you can safely remove any of them.
-    
-    name = "AMD.online"
-    description = "AMD.online - Донхуа та аніме"
-    authors = listOf("galkasv")
-    language = "uk"
+    this.name = "AMD.online"
+    this.description = "AMD.online - СДонхуа та аніме"
+    this.authors = listOf("galkasv")
+    this.language = "uk"
+
+    // Перенесли всередину блоку і захистили від конфліктів за допомогою this.
+    this.version = 2 
 
     /**
      * Status int as one of the following:
@@ -15,16 +13,19 @@ cloudstream {
      * 1: Ok
      * 2: Slow
      * 3: Beta-only
-     */
-    status = 1 // Will be 3 if unspecified
+     **/
+    this.status = 1 
 
-    tvTypes = listOf(
+    this.tvTypes = listOf(
         "Anime", 
         "AnimeMovie", 
         "Movie", 
         "TvSeries",
-        "OVA")
-    iconUrl = "https://www.google.com/s2/favicons?domain=amd.online&sz=%size%"
+        "OVA"
+    )
+    
+    // Автоматично підтягне гарну іконку сайту з фавікону Google
+    this.iconUrl = "https://www.google.com/s2/favicons?domain=amd.online&sz=%size%"
 
-    isCrossPlatform = true
+    this.isCrossPlatform = true
 }
