@@ -15,12 +15,12 @@ https://tinyurl.com/jhx5aet2
 ## ⚙️ Інсталяція
 
 Скопіюйте посилання нижче і перейдіть в Додаток -> Параметри -> Розширення -> Додати репозиторій (можна не додавати свою назву, тільки посилання)
-#### RAW link
+*RAW link*
 ```
 https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/refs/heads/master/repo.json
 ```
 АБО
-##### Short Link
+** Short Link **
 ```
 https://tinyurl.com/yc7axtbp
 ```
