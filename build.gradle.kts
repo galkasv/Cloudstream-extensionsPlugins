@@ -17,9 +17,7 @@ buildscript {
         // 3. Плагін Cloudstream, який керує таском compileDex
         // classpath("com.lagradost:cloudstream3-gradle:1.0.0") 
         
-        classpath("com.github.Lagradost:Cloudstream3-Gradle:master-SNAPSHOT") // Ось так він пишеться в оригіналі
-
-        // classpath("com.github.recloudstream.gradle:com.lagradost.cloudstream3.gradle.gradle.plugin:32895aedb6")
+        classpath("com.github.recloudstream.gradle:com.lagradost.cloudstream3.gradle.gradle.plugin:32895aedb6")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21")
     }
 }
