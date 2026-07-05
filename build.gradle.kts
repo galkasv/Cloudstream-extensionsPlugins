@@ -12,13 +12,13 @@ buildscript {
 
     dependencies {
         
-        classpath("com.android.tools.build:gradle:8.7.2") // Твоя версія AGP
+        classpath("com.android.tools.build:gradle:8.7.2") 
 
         // 3. Плагін Cloudstream, який керує таском compileDex
         // classpath("com.lagradost:cloudstream3-gradle:1.0.0") 
         
         classpath("com.github.recloudstream.gradle:com.lagradost.cloudstream3.gradle.gradle.plugin:32895aedb6")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.0")
     }
 }
 
