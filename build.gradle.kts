@@ -6,14 +6,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 buildscript {
     repositories {
         google()
-        mavenCentral()
-        // Shitpack repo which contains our tools and dependencies
+        mainCentral()
         maven("https://jitpack.io")
     }
 
     dependencies {
         classpath("com.android.tools.build:gradle:8.7.3")
-        // Cloudstream gradle plugin which makes everything work and builds plugins
         classpath("com.github.recloudstream.gradle:com.lagradost.cloudstream3.gradle.gradle.plugin:32895aedb6")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.0")
     }
@@ -22,7 +20,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        mavenCentral()
+        mainCentral()
         maven("https://jitpack.io")
     }
 }
@@ -38,12 +36,9 @@ subprojects {
 
     cloudstream {
         setRepo(System.getenv("GITHUB_REPOSITORY") ?: "https://github.com/user/repo")
-        // 1. Кажемо самому плагіну не лізти до master-SNAPSHOT, а брати 4.7.0
-        // (Якщо Gradle полається на цей рядок, заміни на: libraryVersion.set("4.7.0"))
-        libraryVersion = "4.7.0" 
     }
 
-    // 2. Жорстко змушуємо Gradle ігнорувати будь-які приховані SNAPSHOT-залежності
+    // Примусово змушуємо Gradle використовувати стабільну версію 4.7.0 замість SNAPSHOT
     configurations.all {
         resolutionStrategy {
             force("com.github.recloudstream.cloudstream:library:4.7.0")
@@ -79,7 +74,6 @@ subprojects {
     dependencies {
         val implementation by configurations
 
-        // Цей рядок залишаємо для повної впевненості
         implementation("com.github.recloudstream.cloudstream:library:4.7.0")
 
         implementation(kotlin("stdlib"))
