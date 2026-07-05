@@ -11,7 +11,12 @@ buildscript {
     }
 
     dependencies {
-        
+        // 1. Повертаємо Android інструменти (версія має збігатися з твоєю минулою, зазвичай 8.x.x)
+        classpath("com.android.tools.build:gradle:8.7.2") 
+
+        // 3. Плагін Cloudstream, який керує таском compileDex
+        classpath("com.lagradost:cloudstream3-gradle:1.0.0") // вкажи версію, яка була у тебе спочатку
+
         classpath("com.github.recloudstream.gradle:com.lagradost.cloudstream3.gradle.gradle.plugin:32895aedb6")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21")
     }
