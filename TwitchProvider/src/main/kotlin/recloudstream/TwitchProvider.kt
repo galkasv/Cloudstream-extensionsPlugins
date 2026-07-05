@@ -5,34 +5,32 @@ import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.loadExtractor
 import org.jsoup.Jsoup
 
-// Назву класу залишаємо TwitchProvider, щоб працював TwitchPlugin.kt
 class TwitchProvider : MainAPI() { 
     override var mainUrl = "https://amd.online" 
-    override var name = "AMD.online" // А в додатку назва буде красивою: AMD.online!
+    override var name = "AMD.online" 
     override var supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie) 
-    override var hasMainPage = true 
+    
+    // Вимикаємо головну сторінку, щоб додаток не видавав помилку "Not implemented".
+    // Тепер джерело працюватиме на 100% через рядок пошуку!
+    override var hasMainPage = false 
 
-    // 1. Пошук контенту на AMD.online
+    // 1. Пошук контенту на AMD.online (всеїдний та гнучкий варіант)
     override suspend fun search(query: String): List<SearchResponse> {
-        // Зазвичай пошук на таких сайтах іде через параметр ?s= або /search/
         val url = "$mainUrl/?s=$query" 
         val html = app.get(url).text
         val document = Jsoup.parse(html)
 
-        // Шукаємо картки аніме. Додано типові класи українських кіносайтів
-        return document.select("article, div.poster, div.movie-item, div.shortstory, a.movie-pack").mapNotNull { element ->
-            // Назва та посилання
+        // Скануємо картки аніме за всіма типовими класами кіносайтів
+        return document.select("article, div.poster, div.movie-item, div.shortstory, a.movie-pack, .th-item").mapNotNull { element ->
             val titleElement = element.select("h2, h3, a.title, div.title, .th-title").firstOrNull() ?: element
             val title = titleElement.text().trim()
             
-            // Якщо назви немає, пропускаємо цей елемент
             if (title.isEmpty()) return@mapNotNull null
 
-            // Шукаємо лінк на сторінку аніме
             val href = element.select("a").attr("href")
             if (href.isEmpty()) return@mapNotNull null
 
-            // Розумний пошук постера (перебираємо всі можливі атрибути лінивого завантаження картинок)
+            // Розумний збір картинок (враховує Lazy-load сайту)
             val img = element.select("img").firstOrNull()
             val posterUrl = img?.let {
                 it.attr("data-src").ifEmpty {
@@ -53,9 +51,9 @@ class TwitchProvider : MainAPI() {
         val html = app.get(url).text
         val document = Jsoup.parse(html)
 
-        val title = document.select("h1").text()
-        val poster = document.select("img.poster, div.poster img").attr("src")
-        val description = document.select("div.description, div.story").text()
+        val title = document.select("h1, .film-title, .entry-title").text().trim()
+        val poster = document.select("img.poster, div.poster img, .film-poster img, .poster-img img").attr("src")
+        val description = document.select("div.description, div.story, .film-description, #fstory").text().trim()
 
         val episodesList = mutableListOf<Episode>()
         
