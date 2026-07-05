@@ -11,7 +11,9 @@ https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/builds/p
 https://tinyurl.com/jhx5aet2
 
 ### RAW link
+```mermaid
 https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/refs/heads/master/repo.json
+```
 ### Short Link
 https://tinyurl.com/yc7axtbp
 
