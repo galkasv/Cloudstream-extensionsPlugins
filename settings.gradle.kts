@@ -1,11 +1,6 @@
 rootProject.name = "CloudstreamPlugins"
 
-// Список папок, які ми хочемо повністю ігнорувати при збірці
-val ignoredPlugins = listOf(
-    "DailymotionProvider",
-    "InternetArchiveProvider",
-    "InvidiousProvider"
-)
+val ignoredPlugins = listOf<String>()
 
 File(rootDir, ".").eachDir { dir ->
     if (!ignoredPlugins.contains(dir.name) && File(dir, "build.gradle.kts").exists()) {

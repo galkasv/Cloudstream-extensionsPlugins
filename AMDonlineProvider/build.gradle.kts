@@ -3,9 +3,11 @@ version = 2
 
 cloudstream {
     // All of these properties are optional, you can safely remove any of them.
-
-    description = "Watch livestreams from Twitch"
-    authors = listOf("CranberrySoup")
+    
+    name = "AMD.online"
+    description = "AMD.online - Донхуа та аніме"
+    authors = listOf("galkasv")
+    language = "uk"
 
     /**
      * Status int as one of the following:
@@ -16,8 +18,13 @@ cloudstream {
      */
     status = 1 // Will be 3 if unspecified
 
-    tvTypes = listOf("Live")
-    iconUrl = "https://www.google.com/s2/favicons?domain=twitch.tv&sz=%size%"
+    tvTypes = listOf(
+        "Anime", 
+        "AnimeMovie", 
+        "Movie", 
+        "TvSeries",
+        "OVA")
+    iconUrl = "https://www.google.com/s2/favicons?domain=amd.online&sz=%size%"
 
     isCrossPlatform = true
 }
