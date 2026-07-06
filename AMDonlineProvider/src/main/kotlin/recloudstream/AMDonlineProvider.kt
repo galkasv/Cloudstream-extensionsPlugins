@@ -17,8 +17,34 @@ class AMDonlineProvider : MainAPI() {
     
     // Вимикаємо головну сторінку, щоб додаток не видавав помилку "Not implemented".
     // Тепер джерело працюватиме на 100% через рядок пошуку!
-    override var hasMainPage = false 
+    override var hasMainPage = true
 
+    override suspend fun getMainPage(page: Int, request: HomePageRequest): HomePageResponse {
+        val html = app.get(mainUrl).text
+        val document = Jsoup.parse(html)
+        
+        val items = document.select("article, div.poster, div.movie-item, div.shortstory, a.movie-pack, .th-item").mapNotNull { element ->
+            val titleElement = element.select("h2, h3, a.title, div.title, .th-title").firstOrNull() ?: element
+            val title = titleElement.text().trim()
+            if (title.isEmpty()) return@mapNotNull null
+            
+            val href = element.select("a").attr("href")
+            if (href.isEmpty()) return@mapNotNull null
+            
+            val img = element.select("img").firstOrNull()
+            val posterUrl = img?.let {
+                if (it.attr("data-src").isNotEmpty()) it.attr("data-src")
+                else if (it.attr("data-lazy-src").isNotEmpty()) it.attr("data-lazy-src")
+                else it.attr("src")
+            } ?: ""
+            
+            newAnimeSearchResponse(title, href, TvType.Anime) {
+                this.posterUrl = posterUrl
+            }
+        }
+        return newHomePageResponse("Останні оновлення", items)
+    }
+    
     // 1. Пошук контенту на AMD.online (всеїдний та гнучкий варіант)
     override suspend fun search(query: String): List<SearchResponse> {
         val url = "$mainUrl/?s=$query" 

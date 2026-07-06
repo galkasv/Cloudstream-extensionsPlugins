@@ -57,7 +57,9 @@ subprojects {
     }
 
     android {
-        namespace = "recloudstream"
+        // namespace = "recloudstream"
+        // Автоматично додасть назву папки провайдера в кінці (буде recloudstream.amdonlineprovider тощо)
+        namespace = "recloudstream.${project.name.lowercase()}"
 
         defaultConfig {
             minSdk = 21

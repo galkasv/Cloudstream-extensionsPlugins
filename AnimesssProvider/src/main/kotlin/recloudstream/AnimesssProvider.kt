@@ -14,8 +14,32 @@ class AnimesssProvider : MainAPI() {
     override var name = "Animesss"
     override var mainUrl = "https://animesss.com"
     override var supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie, TvType.Movie, TvType.TvSeries, TvType.OVA) 
-    override var hasMainPage = false 
-
+    override var hasMainPage = true 
+    
+    override suspend fun getMainPage(page: Int, request: HomePageRequest): HomePageResponse {
+        // Завантажуємо головну сторінку Animesss
+        val html = app.get(mainUrl).text
+        val document = Jsoup.parse(html)
+        
+        // Використовуємо твої селектори з функції search
+        val items = document.select("article.post, div.anime-item, div.poster-card").mapNotNull { element ->
+            val title = element.select("h2.title, a.title, h3").text().trim()
+            if (title.isEmpty()) return@mapNotNull null
+            
+            val href = element.select("a").attr("href")
+            if (href.isEmpty()) return@mapNotNull null
+            
+            val posterUrl = element.select("img").attr("data-src").ifEmpty {
+                element.select("img").attr("src")
+            }
+            
+            newAnimeSearchResponse(title, href, TvType.Anime) {
+                this.posterUrl = posterUrl
+            }
+        }
+        return newHomePageResponse("Останні оновлення аніме", items)
+    }
+    
     // 1. Пошук аніме
     override suspend fun search(query: String): List<SearchResponse> {
         val url = "$mainUrl/?s=$query"
