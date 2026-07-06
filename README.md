@@ -24,5 +24,11 @@ https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/refs/hea
 ```
 https://tinyurl.com/yc7axtbp
 ```
+АБО
+###### **Short Link**
+```
+https://tinyurl.com/animeserials
+```
+
 
 *Go use it, it's a great mobile discord client mod!*
