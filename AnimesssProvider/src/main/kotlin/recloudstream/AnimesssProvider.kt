@@ -16,7 +16,8 @@ class AnimesssProvider : MainAPI() {
     override var supportedTypes = setOf(TvType.Anime, TvType.AnimeMovie, TvType.Movie, TvType.TvSeries, TvType.OVA) 
     override var hasMainPage = true 
     
-    override suspend fun getMainPage(page: Int, request: HomePageRequest): HomePageResponse {
+    // override suspend fun getMainPage(page: Int, request: HomePageRequest): HomePageResponse {
+    override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse? {
         // Завантажуємо головну сторінку Animesss
         val html = app.get(mainUrl).text
         val document = Jsoup.parse(html)
@@ -39,7 +40,7 @@ class AnimesssProvider : MainAPI() {
         }
         return newHomePageResponse("Останні оновлення аніме", items)
     }
-    
+
     // 1. Пошук аніме
     override suspend fun search(query: String): List<SearchResponse> {
         val url = "$mainUrl/?s=$query"

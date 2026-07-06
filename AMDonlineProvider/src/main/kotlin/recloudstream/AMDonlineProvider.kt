@@ -19,7 +19,8 @@ class AMDonlineProvider : MainAPI() {
     // Тепер джерело працюватиме на 100% через рядок пошуку!
     override var hasMainPage = true
 
-    override suspend fun getMainPage(page: Int, request: HomePageRequest): HomePageResponse {
+    // override suspend fun getMainPage(page: Int, request: HomePageRequest): HomePageResponse {
+    override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse? {
         val html = app.get(mainUrl).text
         val document = Jsoup.parse(html)
         
@@ -44,7 +45,7 @@ class AMDonlineProvider : MainAPI() {
         }
         return newHomePageResponse("Останні оновлення", items)
     }
-    
+
     // 1. Пошук контенту на AMD.online (всеїдний та гнучкий варіант)
     override suspend fun search(query: String): List<SearchResponse> {
         val url = "$mainUrl/?s=$query" 
