@@ -1,1 +1,8 @@
-
+{
+  "name": "Cloudstream-extensionsPlugins",
+  "description": "galkasv CloudStream extension repository",
+  "manifestVersion": 1,
+  "pluginLists": [
+    "https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/builds/plugins.json"
+  ]
+}
