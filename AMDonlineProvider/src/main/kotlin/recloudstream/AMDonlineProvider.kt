@@ -1,4 +1,4 @@
-package recloudstream
+package recloudstream.amdonline
 
 import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.ExtractorLink
