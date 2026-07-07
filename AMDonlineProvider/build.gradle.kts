@@ -7,7 +7,8 @@ plugins {
 version = "2"
 
 cloudstream {
-    description = "AMD.online - Серіали та аніме в українському дубляжі"
+    description = "AMD.online - Серіали, донхуа та аніме"
+    packageName = "recloudstream.amdonline"
     authors = listOf("galkasv")
     language = "uk"
     status = 1

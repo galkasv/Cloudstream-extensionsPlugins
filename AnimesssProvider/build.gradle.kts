@@ -8,6 +8,7 @@ version = "1"
 
 cloudstream {
     description = "Animesss - Дивитися аніме та донхуа"
+    packageName = "recloudstream.animesss" // <-- ПРОСТО ДОПИШИ ЦЕЙ РЯДОК СЮДИ
     authors = listOf("galkasv")
     language = "uk"
     status = 1
