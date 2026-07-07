@@ -5,12 +5,8 @@ This repository contains a collection of extensions for [Cloudstream3](https://g
 
 ### Attribution
 
-###### Plugins Link
-https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/builds/plugins.json
-
-###### Short Link
-https://tinyurl.com/jhx5aet2
-
+// ###### Plugins Link
+// https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/builds/plugins.json
 
 ## ⚙️ Інсталяція
 
