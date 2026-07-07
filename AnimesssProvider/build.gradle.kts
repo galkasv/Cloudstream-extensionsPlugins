@@ -4,7 +4,7 @@ plugins {
     id("com.lagradost.cloudstream3.gradle")
 }
 
-version = "1"
+version = "3"
 
 cloudstream {
     description = "Animesss - Дивитися аніме та донхуа"
