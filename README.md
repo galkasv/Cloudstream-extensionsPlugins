@@ -3,11 +3,6 @@
 Це кастомне розширення для перегляду фільмів, серіалів та аніме від різних постачальників в стрімінговій програмі Cloudstream.
 This repository contains a collection of extensions for [Cloudstream3](https://github.com/recloudstream/cloudstream)
 
-### Attribution
-
-###### Repo Link
-https://raw.githubusercontent.com/galkasv/Cloudstream-extensionsPlugins/builds/plugins.json
-
 ## ⚙️ Інсталяція
 
 Скопіюйте посилання нижче і перейдіть в Додаток -> Параметри -> Розширення -> Додати репозиторій (можна не додавати свою назву, тільки посилання)
