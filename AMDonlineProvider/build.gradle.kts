@@ -4,7 +4,7 @@ plugins {
     id("com.lagradost.cloudstream3.gradle")
 }
 
-version = "3"
+version = "3" // Версія плагіна 
 
 cloudstream {
     description = "AMD.online - Серіали, донхуа та аніме"
